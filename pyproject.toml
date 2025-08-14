@@ -1,0 +1,30 @@
+[project]
+name = "toned-moon-crossings"
+version = "2025.8.11"
+requires-python = ">=3.9"
+description = "Python functions for determining the moon's altitude and sunrise/sunset information for different points on Earth at different times."
+readme = "README.md"
+license = "CC-BY-4.0"
+authors = [
+    {name = "Dawn McKnight"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13"
+]
+
+dependencies = [
+    "astropy",
+    "matplotlib",
+    "numpy",
+    "scipy"
+]
+
+
+[project.optional-dependencies]
+ephem = ["ephem"]
+

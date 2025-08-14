@@ -4,6 +4,8 @@ from typing import Generator, NamedTuple, Optional, Union
 
 from scipy import optimize
 
+from toned_moon_crossings.utils import datetime_as_utc
+
 
 class CelestialCrossing(NamedTuple):
     time: datetime
@@ -60,6 +62,8 @@ class MoonCrossingSearchMixin:
             False for moonset, or None if undetermined.
             Times are in UTC unless output_timezone is specified.
         """
+        start_datetime = datetime_as_utc(start_datetime)
+
         if end_datetime is None:
             end_datetime = start_datetime + timedelta(hours=24)
 
@@ -68,7 +72,7 @@ class MoonCrossingSearchMixin:
         times_as_floats = [t.timestamp() for t in times]  # Convert to timestamps for calculations
 
         def get_altitude_from_time(t_as_float: float) -> float:
-            t_as_datetime = datetime.fromtimestamp(t_as_float)
+            t_as_datetime = datetime.fromtimestamp(t_as_float, tz=timezone.utc)
             return cls.calc_moon_altitudes(  # type: ignore
                 date_time=t_as_datetime,
                 observer_latitude=observer_latitude,
@@ -102,7 +106,7 @@ class MoonCrossingSearchMixin:
                     else:
                         raise ValueError("Unexpected condition: values[i] == values[i+1] during root finding.")
 
-                    lun_root_as_datetime = datetime.fromtimestamp(lun.root)
+                    lun_root_as_datetime = datetime.fromtimestamp(lun.root, tz=timezone.utc)
                     yield CelestialCrossing(time=lun_root_as_datetime.astimezone(output_timezone), is_rise=is_rise)
 
     @classmethod
@@ -137,9 +141,8 @@ class MoonCrossingSearchMixin:
             A NamedTuple (moonrise, moonset) where each is a datetime object or None if not found.
             Both times are in UTC unless output_timezone is specified.
         """
-        if start_datetime.tzinfo is None:
-            # Assume it is UTC if no timezone given
-            start_datetime = start_datetime.replace(tzinfo=timezone.utc)
+        start_datetime = datetime_as_utc(start_datetime)
+
         if end_datetime is None:
             end_datetime = start_datetime + timedelta(hours=24)
         moonrise = None

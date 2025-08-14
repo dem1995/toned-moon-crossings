@@ -2,15 +2,18 @@ from datetime import datetime
 from functools import lru_cache
 from typing import Union
 
+import numpy as np
 from typing_extensions import override
 
 import astropy
 from astropy.coordinates import AltAz, EarthLocation, SkyCoord, get_body
 import astropy.time
 import astropy.units as u
-from moon_calculator_base import MoonAltitudes, MoonInfoCalculatorBase
-from moon_crossing_search_mixin import MoonCrossingSearchMixin
-import numpy as np
+from toned_moon_crossings.moon_calculator_base import (
+    MoonAltitudes,
+    MoonInfoCalculatorBase,
+)
+from toned_moon_crossings.moon_crossing_search_mixin import MoonCrossingSearchMixin
 
 
 class MoonCalculatorAstropy(MoonCrossingSearchMixin, MoonInfoCalculatorBase):

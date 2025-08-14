@@ -1,6 +1,6 @@
 [project]
 name = "toned-moon-crossings"
-version = "2025.8.11"
+version = "2025.8.13"
 requires-python = ">=3.9"
 description = "Python functions for determining the moon's altitude and sunrise/sunset information for different points on Earth at different times."
 readme = "README.md"
@@ -21,7 +21,8 @@ dependencies = [
     "astropy",
     "matplotlib",
     "numpy",
-    "scipy"
+    "scipy",
+    "typing-extensions"
 ]
 
 

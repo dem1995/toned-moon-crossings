@@ -26,6 +26,9 @@ class MoonriseMoonset(NamedTuple):
     moonrise: Union[datetime, None]
     moonset: Union[datetime, None]
 
+    def __str__(self) -> str:
+        return f"Moonrise: {self.moonrise}\nMoonset: {self.moonset}"
+
 
 class MoonCrossingSearchMixin:
     @classmethod
